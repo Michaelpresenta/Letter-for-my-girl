@@ -1,1 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Love Letter For You</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .letter-container {
+            background: #fefef8;
+            border-radius: 15px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            max-width: 650px;
+            width: 100%;
+            padding: 60px 50px;
+            position: relative;
+            animation: slideInFromBottom 1s ease-out;
+            border: 2px solid #ffb6d9;
+        }
+
+        @keyframes slideInFromBottom {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .heart-top {
+            font-size: 3em;
+            animation: heartBeat 1.3s infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            25% {
+                transform: scale(1.2);
+            }
+            50% {
+                transform: scale(1);
+            }
+        }
+
+        .letter-title {
+            font-size: 2.2em;
+            color: #d63384;
+            font-weight: normal;
+            font-style: italic;
+            letter-spacing: 2px;
+        }
+
+        .date {
+            color: #999;
+            font-size: 0.95em;
+            margin-top: 10px;
+        }
+
+        .letter-content {
+            color: #333;
+            line-height: 1.9;
+            font-size: 1.05em;
+            text-align: justify;
+            margin-bottom: 40px;
+        }
+
+        .letter-content p {
+            margin-bottom: 20px;
+            animation: fadeInText 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .letter-content p:nth-child(1) {
+            animation-delay: 0.3s;
+        }
+        .letter-content p:nth-child(2) {
+            animation-delay: 0.6s;
+        }
+        .letter-content p:nth-child(3) {
+            animation-delay: 0.9s;
+        }
+        .letter-content p:nth-child(4) {
+            animation-delay: 1.2s;
+        }
+        .letter-content p:nth-child(5) {
+            animation-delay: 1.5s;
+        }
+        .letter-content p:nth-child(6) {
+            animation-delay: 1.8s;
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .special-message {
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe0eb 100%);
+            padding: 25px;
+            border-left: 4px solid #ff6b9d;
+            margin: 30px 0;
+            border-radius: 8px;
+            font-style: italic;
+            color: #c41e7a;
+            font-size: 1.1em;
+            animation: slideInText 1s ease-out 2.1s forwards;
+            opacity: 0;
+        }
+
+        @keyframes slideInText {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .closing {
+            margin-top: 35px;
+            font-style: italic;
+            color: #555;
+        }
+
+        .signature {
+            margin-top: 30px;
+            font-family: 'Brush Script MT', cursive;
+            font-size: 1.8em;
+            color: #d63384;
+            animation: fadeInText 1s ease-out 2.5s forwards;
+            opacity: 0;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            animation: fadeInText 1s ease-out 2.8s forwards;
+            opacity: 0;
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            font-size: 1em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+            font-family: 'Arial', sans-serif;
+        }
+
+        button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 7px 25px rgba(255, 107, 157, 0.6);
+        }
+
+        button:active {
+            transform: translateY(-2px);
+        }
+
+        .hidden-part {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease;
+            animation-delay: 3.1s;
+        }
+
+        .hidden-part.revealed {
+            max-height: 500px;
+        }
+
+        .hidden-content {
+            background: #fff0f5;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 20px;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .hidden-content p {
+            margin-bottom: 15px;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+        }
+
+        .floating-hearts-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 2em;
+            animation: floatUp 5s infinite ease-in;
+            opacity: 0.7;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) translateX(50px) rotate(360deg);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .letter-container {
+                padding: 40px 30px;
+            }
+
+            .letter-title {
+                font-size: 1.8em;
+            }
+
+            .letter-content {
+                font-size: 1em;
+            }
+
+            button {
+                padding: 12px 25px;
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts-container" id="floatingHeartsContainer"></div>
+
+    <div class="letter-container">
+        <div class="header">
+            <div class="heart-top">💌</div>
+            <div class="letter-title">A Love Letter</div>
+            <div class="date" id="dateDisplay"></div>
+        </div>
+
+        <div class="letter-content">
+            <p>To My Dearest Love </p>
+
+            <p>🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹.</p>
+
+            <p>🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹.</p>
+            <p>🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹</p>
+
+            <p>🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹.</p>
+
+            <div class="special-message">
+                ✨ I love you more than words could ever say, and my love for you grows stronger with each passing moment. ✨
+            </div>
+
+            <p>You are my greatest blessing, my dearest dream, and my truest love. I promise to cherish you, support you, and stand by your side through all the beautiful moments life will bring us.</p>
+        </div>
+
+        <div class="closing">
+            <p>Forever Yours,</p>
+            <div class="signature">💕 Your Love</div>
+        </div>
+
+        <div class="hidden-part" id="hiddenPart">
+            <div class="hidden-content">
+                <p><strong>P.S.</strong> There's something more I want to say...</p>
+                <p>🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹</p>
+                <p>Thank you for being you. Thank you for loving me. Thank you for making me the happiest person in the world.</p>
+                <p>I love you with all my heart. 💖</p>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button onclick="revealHiddenMessage()">💝 Read More</button>
+            <button onclick="celebrateLove()">🎉 Celebrate</button>
+            <button onclick="sendLove()">💌 Send Your Love</button>
+        </div>
+    </div>
+
+    <script>
+        // Set current date
+        function setCurrentDate() {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('en-US', options);
+            document.getElementById('dateDisplay').textContent = formattedDate;
+        }
+
+        // Reveal hidden message with animation
+        function revealHiddenMessage() {
+            const hiddenPart = document.getElementById('hiddenPart');
+            const btn = event.target;
+            
+            if (hiddenPart.classList.contains('revealed')) {
+                hiddenPart.classList.remove('revealed');
+                btn.textContent = '💝 Read More';
+            } else {
+                hiddenPart.classList.add('revealed');
+                btn.textContent = '💝 Hide';
+                celebrateLove();
+            }
+        }
+
+        // Create floating hearts effect
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHeartsContainer');
+            const hearts = ['💗', '❤️', '💕', '💖', '💓'];
+            
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'floating-heart';
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.top = '100%';
+                    heart.style.animationDuration = (4 + Math.random() * 2) + 's';
+                    container.appendChild(heart);
+
+                    setTimeout(() => heart.remove(), 6000);
+                }, i * 200);
+            }
+        }
+
+        // Celebrate with hearts
+        function celebrateLove() {
+            createFloatingHearts();
+            createConfetti();
+        }
+
+        // Create colorful confetti
+        function createConfetti() {
+            const colors = ['#ff6b9d', '#ff8fab', '#667eea', '#764ba2', '#ff1493'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = Math.random() * 50 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animation = `fall ${2 + Math.random() * 1}s linear forwards`;
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        // Add CSS animation for confetti falling
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh) rotate(720deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Auto-create floating hearts on page load and periodically
+        window.addEventListener('load', () => {
+            setCurrentDate();
+            createFloatingHearts();
+            
+            // Create new hearts every 8 seconds
+            setInterval(createFloatingHearts, 8000);
+        });
+
+        // Keyboard shortcut: Press Space to celebrate
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                celebrateLove();
+            }
+        });
+    </script>
+</body>
+  </html>
